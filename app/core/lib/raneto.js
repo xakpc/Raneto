@@ -33,8 +33,10 @@ var _marked = require('marked');
 var _marked2 = _interopRequireDefault(_marked);
 
 var _lunr = require('lunr');
-
 var _lunr2 = _interopRequireDefault(_lunr);
+
+require('../../../node_modules/lunr-languages/lunr.stemmer.support.js')(_lunr2.default);
+require('../../../node_modules/lunr-languages/lunr.ru.js')(_lunr2.default); // or any other language you want 
 
 var _jsYaml = require('js-yaml');
 
@@ -371,6 +373,7 @@ var Raneto = function () {
       var contentDir = patch_content_dir(path.normalize(this.config.content_dir));
       var files = glob.sync(contentDir + '**/*.md');
       var idx = (0, _lunr2.default)(function () {
+	    this.use(_lunr2.default.ru);
         this.field('title', { boost: 10 });
         this.field('body');
       });
